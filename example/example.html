@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0">
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+<script type="text/javascript" src="../jquery.bootstrap-pureAlert.js"></script>
+
+<style type="text/css">
+	body {
+		margin: 10px;
+	}
+</style>
+
+<title>pureAlert Example</title>
+</head>
+<body>
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="jumbotron">
+				<h1>Pure Alert Example.</h1>
+				<p>Bootstrap + JQuery</p>
+			</div>
+		</div>
+	</div> <!-- row -->
+	<div class="row">
+		<div class="col-md-12">
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					<h4 class="panel-title">Sample</h4>
+				</div>
+				<div class="panel-body">
+					<button type="button" id="sample_alert" class="btn btn-primary">Alert</button>
+					<button type="button" id="sample_confirm" class="btn btn-primary">Confirm</button>
+				</div> <!-- panel-body -->
+			</div> <!-- panel -->
+			
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					<h4 class="panel-title">Custom</h4>
+				</div>
+				<div class="panel-body">
+					<div class="col-md-3">
+						<button type="button" id="sample_demo" class="btn btn-primary">Launch Demo</button>
+						<br>
+						<div>
+							<div id="customOptionEvent" class="alert alert-info" role="alert" style="margin-top: 20px"></div>
+						</div>
+					</div>
+					<div class="col-md-9">
+						<div id="custom-options-form" class="form-horizontal">
+							<!-- title -->
+							<div class="form-group">
+								<label for="customOption_title" class="control-label col-md-3">Type</label>
+								<div class="btn-group col-md-8" data-toggle="buttons">
+								  <label class="btn btn-success active">
+								    <input type="radio" name="alert_type" id="customOption_alert" value="alert" autocomplete="off" checked>Alert
+								  </label>
+								  <label class="btn btn-warning">
+								    <input type="radio" name="alert_type" id="customOption_confirm" value="confirm" autocomplete="off">Confirm
+								  </label>
+								</div>						
+							</div>						
+						
+							<!-- title -->
+							<div class="form-group">
+								<label for="customOption_title" class="control-label col-md-3">title</label>
+								<div class="input-group col-md-8">
+									<input type="text" class="form-control" id="customOption_title" value="알림" size="3" data-option="title">
+								</div>
+							</div>
+							<!-- content -->
+							<div class="form-group">
+								<label for="customOption_content" class="control-label col-md-3">content</label>
+								<div class="input-group col-md-8">
+									<input type="text" class="form-control" id="customOption_content" value="내용" size="3" data-option="content">
+								</div>
+							</div>
+							<!-- ok -->
+							<div class="form-group">
+								<label for="customOption_ok" class="control-label col-md-3">ok</label>
+								<div class="input-group col-md-8">
+									<input type="text" class="form-control" id="customOption_ok" value="확인" size="3" data-option="okBtn">
+								</div>
+							</div>
+							<!-- cancel -->
+							<div class="form-group">
+								<label for="customOption_cancel" class="control-label col-md-3">cancel</label>
+								<div class="input-group col-md-8">
+									<input type="text" class="form-control" id="customOption_cancel" value="취소" size="3" data-option="cancelBtn">
+								</div>
+							</div>
+							<!-- autoShow -->
+							<div class="form-group">
+								<label for="customOption_autoShow" class="control-label col-md-3">autoShow</label>
+								<div class="btn-group col-md-8" data-toggle="buttons">
+									<label class="btn btn-info active"><span>true</span>
+										<input type="checkbox" class="form-control" autocomplete="off" id="customOption_autoShow" checked="checked" data-option="autoShow">
+									</label>
+								</div>
+							</div>
+							<!-- closeButton -->
+							<div class="form-group">
+								<label for="customOption_closeButton" class="control-label col-md-3">closeButton</label>
+								<div class="btn-group col-md-8" data-toggle="buttons">
+									<label class="btn btn-info"><span>false</span>
+										<input type="checkbox" class="form-control" autocomplete="off"  id="customOption_closeButton" data-option="closeButton">
+									</label>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div> <!-- panel-body -->
+			</div> <!-- panel -->			
+		</div>
+	</div> <!-- row -->
+</div> <!-- container -->
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		/* $.extend($.pureAlert.defaultName, {
+			title: 'Notifications',
+			okBtn: 'OK',
+			cancelBtn: 'Cancel'
+		}); */
+		
+		$("#sample_alert").on("click", function(){
+			var modal = $.pureAlert({content: 'Sample Alert.'});
+		});
+		
+		$("#sample_confirm").on("click", function(){
+			var modal = $.pureAlert.confirm({content: 'Sample Confirm.'});
+		});
+		
+		$("#custom-options-form input[type='checkbox']").on("change", function(){
+			$(this).prev().html($(this).prop("checked").toString());
+		});
+		
+		$("#sample_demo").on("click", function(){
+						
+			var options = {};
+			$("#custom-options-form").find("[data-option]").each(function(index, element){
+				var $element = $(element);
+				
+				var value = $element.val();
+				if($element.attr('type') == 'checkbox'){
+					value = $element.prop("checked");
+				}
+				
+				options[$element.attr('data-option')] = value;
+				
+			});
+			
+			var type = $("input:radio[name='alert_type']:checked").val();
+			
+			console.log(options);
+			
+			var modal = $.pureAlert[type](options);
+			
+			modal.on("ok.pure-alert", function(){
+				$("#customOptionEvent").html("ok button click.");
+			});
+			
+			modal.on("cancel.pure-alert", function(){
+				$("#customOptionEvent").html("cancel button click.");
+			});
+			
+			if(!options.autoShow){
+				$("#customOptionEvent").html("5 sec after show method call.");
+				
+				setTimeout(function(){
+					modal.pureAlert('show')
+				}, 5 * 1000);
+			}
+		});
+	});
+</script>
+</body>
+</html>
