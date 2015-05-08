@@ -16,6 +16,8 @@
 		this.$modal = this.makeModal(options);
 	}
 	
+	PureAlert.VERSION = 'v0.1-beta';
+	
 	PureAlert.DEFIN = {
 		event: {
 			ok: 'ok.pure-alert',
