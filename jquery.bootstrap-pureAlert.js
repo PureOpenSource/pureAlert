@@ -1,8 +1,6 @@
 /*********************************************************************************************
- * PureAlert. v0.1-beta
+ * PureAlert. v0.1
  * ===========================================================================================
- * homepage: http://pureopensource.github.io/pureAlert/
- * 
  * Copyright 2015 Pure OpenSource.
  * Licensed under MIT (https://github.com/PureOpenSource/pureAlert/blob/master/LICENSE)
  *********************************************************************************************/
@@ -16,7 +14,7 @@
 		this.$modal = this.makeModal(options);
 	}
 	
-	PureAlert.VERSION = 'v0.1-beta';
+	PureAlert.VERSION = 'v0.1';
 	
 	PureAlert.DEFIN = {
 		event: {
